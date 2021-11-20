@@ -37,6 +37,25 @@ async function run () {
             res.send(result)
         })
 
+        //post order
+        app.post('/orderNow', async (req, res) => {
+            const order = await orderCollection.insertOne(req.body);
+            res.send(order);
+        })
+
+        //get all order
+        app.get('/allOrder', async (req, res) => {
+            const allOrder = await orderCollection.find({}).toArray();
+            res.send(allOrder);
+        })
+
+        //order delete
+        app.delete('/allOrder/:id', async (req, res) => {
+            const query = {_id: ObjectId(req.params.id)}
+            const deleted = await orderCollection.deleteOne(query);
+            res.send(deleted);
+        })
+
     }
     finally{
         // await client.close();
